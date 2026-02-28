@@ -36,6 +36,7 @@ Minimum:
 - identify facade candidates and interface depth issues
 - decide whether the feature is stable enough to encapsulate now
 - propose encapsulation steps + integration tests to pin behavior
+- MUST output a "Deep Module Pass" even if no candidates
 
 2) Simplification lens (`simplification.md`)
 - remove meaningless duplication/abstraction
@@ -44,6 +45,11 @@ Minimum:
 3) Efficiency/Architecture lens (`efficiency-arch.md`)
 - detect N+1, missed concurrency, broad reads, repeated computation, wrong-layer IO
 - propose how to validate (tests/metrics), not just opinions
+
+Output constraint:
+- Produce a 1-page "Executive Summary" + "Action Plan (Table)" first.
+- Put heavy details under "Module Details" and prefer collapsible sections.
+- Write recommendations and decisions in plain language so non-specialists can understand the "why" and the "next step".
 
 ## Step 4: Decide Single vs Multi-Agent
 
@@ -55,5 +61,4 @@ If multi-agent:
 - Reviewer B: Simplification
 - Reviewer C: Efficiency/Architecture
 - All reviewers receive the same assembled context.
-- Final output must be de-duplicated and synthesized using `output-format.md`.
-
+- Final output must be de-duplicated and synthesized using the Markdown template in `output-format.md`.

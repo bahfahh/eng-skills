@@ -7,7 +7,7 @@ description: Deep module + simplification + efficiency/architecture optimizer fo
 # Module Structure Optimizer
 
 This skill produces a **refactor/encapsulation plan** (not a merge gate).
-Default behavior: **do not modify repo code**. Output actionable steps + tests-to-add.
+Default behavior: **do not modify repo code**. Output a Markdown report with actionable steps + tests-to-add.
 
 ## Inputs (Choose Based on User Request)
 
@@ -43,7 +43,10 @@ If mixed languages are present, load both stack references.
    - tests-to-add plan (integration/contract/e2e to pin behavior)
    - simplifications (remove dead/meaningless code, reduce unnecessary abstraction)
    - efficiency/architecture risks + how to validate
-5. Output using the schema in `references/output-format.md`.
+5. Output using the Markdown template in `references/output-format.md` (Markdown-first; optional small YAML `summary` only).
+
+Deep Module requirement:
+- Always include a "Deep Module Pass" section (even if you find no good candidates).
 
 ## Hybrid Multi-Agent Rule
 
@@ -53,4 +56,3 @@ Escalate to multi-agent review (split into 3 reviewers, then synthesize) when an
 - data-access heavy areas are touched
 - suspected N+1 / broad queries / sequential awaits across independent calls
 - changes span many modules or large surface area
-
