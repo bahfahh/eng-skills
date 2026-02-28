@@ -30,6 +30,14 @@ async function processAndSendReport(reportId: string) {
 }
 ```
 
+**Module depth fail pattern [D-1]:** Caller must compose multiple functions to complete one business operation — the intent is split across the call site.
+```typescript
+// FRAGMENTED at call site: business intent "get user config" is assembled by caller
+const path = getConfigFilePath(userId)
+const raw = readFile(path)
+const config = mergeDefaults(parse(raw))
+```
+
 **Pass pattern:**
 ```typescript
 // CLEAR: one job — orchestrate the send flow
@@ -40,6 +48,9 @@ async function sendApprovedReport(reportId: string) {
   await reportRepository.markSent(reportId)
 }
 // Each called function has its own clear intent
+
+// CLEAR: one call completes the business operation
+const config = getUserConfig(userId)
 ```
 
 ---
@@ -114,6 +125,22 @@ function updateStudent(id: string, data: any) {
 }
 ```
 
+**Shallow module fail pattern [D-2][D-3]:** Same input object is passed to multiple utils in fixed order at the call site — the composition rule exists only in the caller's head, not in any named function.
+```typescript
+// RISKY: if call order changes or one util is swapped, AI has no way to know
+createMessage({
+  dateRange: getDateRangeLabel(content),   // always called together
+  highlights: getHighlights(content),      // always called together
+  counts: getDomainCounts(content),        // always called together
+})
+```
+
+**Interface depth fail pattern [D-4]:** Interface exposes internal steps as parameters — AI must reconstruct the composition logic to call correctly.
+```typescript
+// UNSAFE: caller must know 7 internal details to make one business call
+sendReport(reportId, lineToken, studentName, className, teacherName, pdfUrl, flexParams)
+```
+
 **Pass pattern:**
 ```typescript
 // SAFE: named constants, explicit domain rule, no surprises
@@ -129,6 +156,12 @@ function isEligibleForDiscount(score: number, mode: Mode, flags: Flags): boolean
     && mode !== Mode.EXEMPT
     && !flags.discountAlreadyApplied
 }
+
+// SAFE: interface hides composition — one business identifier is enough
+sendReport(reportId)
+
+// SAFE: facade encapsulates fixed-sequence utils
+createMessage(prepareMessageParams(content))
 ```
 
 ---
@@ -152,6 +185,19 @@ function isEligibleForDiscount(score: number, mode: Mode, flags: Flags): boolean
 - Behavior only testable via full integration (can't isolate)
 - Edge cases only discoverable by running in production
 
+**Test coupling fail pattern [T-3]:** Tests assert on internal call paths rather than behavior — they break on refactor even if behavior is unchanged.
+```typescript
+// HARD: test is coupled to implementation, not behavior
+expect(getHighlights).toHaveBeenCalledWith(content)
+expect(getDomainCounts).toHaveBeenCalledWith(content)
+```
+
+**Wrong test target fail pattern [T-1]:** Utils have thorough tests but the facade that composes them has none — business behavior is untested at the meaningful boundary.
+```
+HARD: tests/utils/report.test.ts covers every util individually
+      but tests/api/reports.test.ts (facade) does not exist
+```
+
 **Pass pattern:**
 ```typescript
 // EASY: from reading this, you can derive:
@@ -166,6 +212,10 @@ async function getObservations(orgId: string, filters: ObservationFilters) {
     .gte('created_at', filters.startDate)
     .lte('created_at', filters.endDate)
 }
+
+// EASY: test targets behavior, not implementation path
+expect(result.highlights).toEqual(['本週觀察重點...'])
+expect(result.domainCounts.emotion).toBe(3)
 ```
 
 ---
@@ -184,13 +234,23 @@ async function getObservations(orgId: string, filters: ObservationFilters) {
 | `implicit` | Rules exist but are embedded in conditions without names |
 | `hidden` | Rules only discoverable by reading all branches carefully |
 
-**Fail pattern:**
+**Fail patterns:**
 ```typescript
 // HIDDEN: what does this rule mean? Why these specific conditions?
 if (user.role === 'teacher' && obs.created_by === user.id
     && obs.status !== 'archived' && !org.locked) {
   allowEdit()
 }
+```
+
+**Naming fail pattern [N-1][N-2]:** Function name describes technical steps instead of business concept — reader must parse the body to understand intent.
+```typescript
+// IMPLICIT: name is a step description, not a business concept
+parseAndMergeConfig(raw)
+getAndFormatAndMergeReport(id)
+
+// IMPLICIT: interface leaks storage layer details instead of business language
+createObservation(supabase, orgId, { observation_date, created_by, organization_id })
 ```
 
 **Pass pattern:**
@@ -206,6 +266,10 @@ function canTeacherEditObservation(user: User, obs: Observation, org: Org): bool
     && obs.status !== 'archived'       // archived = immutable
     && !org.locked                     // org lock prevents all edits
 }
+
+// EXPLICIT: name reflects business concept, interface uses business language
+getUserConfig(userId)
+createObservation(orgId, { date, teacherId, note, studentIds })
 ```
 
 ---
