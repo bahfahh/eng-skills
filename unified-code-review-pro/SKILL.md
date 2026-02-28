@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: unified-code-review-pro
 description: Unified code review orchestrator. Use whenever reviewing a PR, diff, or code change.Automatically selects review depth based on what changed — from lightweight correctness,checks to full architecture and efficiency analysis. Covers correctness, security, UX,architecture quality, and efficiency. Use this skill for any code review request,pull request review, or merge request review.
 ---
 
