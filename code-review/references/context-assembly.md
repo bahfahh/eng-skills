@@ -8,15 +8,18 @@ The single most important step in semantic review. Bad context = bad review, reg
 
 Do not feed the entire codebase into context. Select based on what the diff touches.
 
+Important: technical plans (e.g. `plan.md`) are not semantic ground truth. Use them only to locate intended change areas, not to validate correctness.
+
 **Selection algorithm:**
 
 ```
 1. Parse the diff → list of changed files and functions
 2. For each changed file:
    a. Find the FULL file content (not just the diff — LLM needs surrounding context)
-   b. Find requirements/specs that mention this feature area
-   c. Find tests for this file or function
-   d. Find callers (who calls this function?) and callees (what does it call?)
+   b. Find acceptance criteria (Given/When/Then, error/edge cases) for this feature area
+   c. Find requirements/specs that define intent behind this feature area
+   d. Find tests for this file or function
+   e. Find callers (who calls this function?) and callees (what does it call?)
 3. Assemble in priority order within token budget
 ```
 
@@ -27,35 +30,38 @@ Do not feed the entire codebase into context. Select based on what the diff touc
 Organize context in this order (most important first and last, due to LLM attention patterns):
 
 ```markdown
-## 1. Requirements Context (FIRST — highest priority)
-[Relevant sections from requirements/specs/design docs]
+## 1. Acceptance Context (FIRST — highest priority)
+[Relevant sections from acceptance criteria: Given/When/Then, error cases, edge cases]
+
+## 2. Requirements Context
+[Relevant sections from requirements/specs]
 [Only the sections related to the changed code]
 
-## 2. PR Diff
+## 3. PR Diff
 [The actual changes being reviewed]
 
-## 3. Full File Context
+## 4. Full File Context
 [Complete content of changed files — not just the diff]
 
-## 4. Related Code
+## 5. Related Code
 [Callers: functions that call the changed code]
 [Callees: functions called by the changed code]
 [Similar patterns: other files that follow the same convention]
 
-## 5. Test Context
+## 6. Test Context
 [Existing tests for the changed code]
 [What behavior is currently expected]
 
-## 6. Known Issues (LAST — second highest priority position)
+## 7. Known Issues (LAST — second highest priority position)
 [Lessons learned, known pitfalls for this area]
 [Previous bugs in similar code]
 ```
 
-Why this order: LLMs have strongest attention at the beginning and end of context (the "Lost in the Middle" problem). Requirements go first because they define intent. Known issues go last because they're the most actionable warnings.
+Why this order: LLMs have strongest attention at the beginning and end of context (the "Lost in the Middle" problem). Acceptance goes first because it defines the BDD ground truth. Known issues go last because they're the most actionable warnings.
 
 ---
 
-## Finding Requirements for a Diff
+## Finding Acceptance/Requirements for a Diff
 
 Most projects don't have a clean mapping from code to requirements. Use these heuristics:
 
@@ -78,7 +84,7 @@ diff contains "organization_id" → search for "multi-tenant", "isolation"
 diff contains "role === 'teacher'" → search for "teacher permissions"
 ```
 
-If no requirements are found, state it: "No requirements doc found for this area. Review grounded in: [existing tests / codebase conventions / general knowledge]."
+If no acceptance/requirements are found, state it: "No acceptance/requirements doc found for this area. Review grounded in: [existing tests / codebase conventions / PR description / general knowledge]."
 
 ---
 
@@ -86,7 +92,8 @@ If no requirements are found, state it: "No requirements doc found for this area
 
 | Context Type | Typical Size | Priority |
 |-------------|-------------|----------|
-| Requirements excerpt | 1–3K tokens | Must include |
+| Acceptance excerpt | 1–3K tokens | Must include (if available) |
+| Requirements excerpt | 1–3K tokens | Must include (if available) |
 | PR diff | 2–8K tokens | Must include |
 | Full changed files | 3–10K tokens | Should include |
 | Callers/callees | 2–5K tokens | Include if available |
@@ -97,7 +104,7 @@ If no requirements are found, state it: "No requirements doc found for this area
 If total exceeds 30K tokens:
 1. Trim "Related Code" to only direct callers
 2. Trim "Full File Context" to only the changed functions + 20 lines above/below
-3. Never trim Requirements or PR Diff
+3. Never trim Acceptance (if present), Requirements (if present), or PR Diff
 
 ---
 
@@ -105,7 +112,8 @@ If total exceeds 30K tokens:
 
 Many projects have no specs, no design docs, no ADRs. The semantic source becomes:
 
-1. **Tests** — the strongest signal of expected behavior
+1. **Acceptance criteria** — if present anywhere (even in PR description), treat as the strongest
+2. **Tests** — the strongest executable signal of expected behavior
 2. **Function signatures + types** — the interface contract
 3. **Naming conventions** — what the author intended
 4. **Commit history** — why the code was written this way (if accessible)
@@ -117,14 +125,14 @@ In this case, the review shifts from "does this match the spec?" to "is this int
 
 ## Context Assembly for Different Project Types
 
-**Projects with specs/requirements:**
+**Projects with acceptance + requirements/specs:**
 ```
 Strongest review possible.
-Context = specs + diff + related code + tests
-Findings grounded in: "Per requirement X, this should..."
+Context = acceptance + requirements/specs + diff + related code + tests
+Findings grounded in: "Per acceptance/requirement X, this should..."
 ```
 
-**Projects with tests but no specs:**
+**Projects with tests but no acceptance/requirements:**
 ```
 Good review.
 Context = tests + diff + related code
