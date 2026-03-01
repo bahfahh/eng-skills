@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(mkdir:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(gh repo:*)"
     ]
   }
 }
