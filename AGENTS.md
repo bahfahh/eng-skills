@@ -15,3 +15,10 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 -不確定需要 詢問使用者(選擇題給使用者選擇)對齊需求
 -建立skills 要理解用途和範圍 或是流程 可參考
 https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+
+## 已經完成的skills
+skills/
+deep-module-refactor-advisor
+module-structure-optimizer
+unified-code-review-pro
+
