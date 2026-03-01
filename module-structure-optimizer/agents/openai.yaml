@@ -1,3 +1,0 @@
-display_name: "Module Structure Optimizer"
-short_description: "Post-feature encapsulation + simplification + perf/arch risk scan (TS/React + .NET)."
-default_prompt: "Analyze the completed feature and propose deep-module encapsulation candidates, simplifications, and performance/architecture risks. Output a step-by-step refactor plan with tests-to-add using the skill schema."
