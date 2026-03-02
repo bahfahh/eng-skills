@@ -14,22 +14,25 @@ Default behavior: **do not modify repo code**. Output a Markdown report with act
 - `whole-project` mode: analyze the codebase (optionally scoped to paths/modules/keywords).
 - `change-focused` mode: analyze a diff/commit range to narrow the scan, but do not treat the diff as the only source of truth for "ready to encapsulate".
 
-## Reference Loading (By File Extension)
+## Reference Loading
 
-Load the common references:
-- `references/workflow.md`
-- `references/ground-truth.md`
-- `references/deep-module.md`
-- `references/simplification.md`
-- `references/efficiency-arch.md`
-- `references/output-format.md`
+Always load on startup:
+- `references/workflow.md` — the orchestration entry point; it will tell you when to load other references
+- `references/output-format.md` — needed for every output
 
-Then load stack-specific references based on touched/target files:
+Load on-demand as directed by workflow.md:
+- `references/ground-truth.md` — at Step 2 (building context)
+- `references/deep-module.md` — when running the Deep Module lens
+- `references/simplification.md` — when running the Simplification lens
+- `references/efficiency-arch.md` — when running the Efficiency/Arch lens
+
+Load stack-specific references based on touched/target file extensions:
 
 | Extensions | Load |
 |---|---|
 | `.ts`, `.tsx`, `.js`, `.jsx` | `references/stacks/ts-frontend.md` |
 | `.cs`, `.csproj` | `references/stacks/csharp-dotnet.md` |
+| Other languages | No stack reference; apply the three lenses using general patterns |
 
 If mixed languages are present, load both stack references.
 
@@ -56,3 +59,5 @@ Escalate to multi-agent review (split into 3 reviewers, then synthesize) when an
 - data-access heavy areas are touched
 - suspected N+1 / broad queries / sequential awaits across independent calls
 - changes span many modules or large surface area
+
+Note: most production codebases will meet at least one condition above — multi-agent is the expected path, not the exception. It takes longer but produces more reliable results across all three lenses.

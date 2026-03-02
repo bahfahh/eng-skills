@@ -21,6 +21,16 @@ If either is missing:
 - mark as `not_ready`,
 - and list `tests_to_add` / `spec_gaps` as prerequisites.
 
+### Confidence levels
+
+Use these to fill the `confidence` field in the output:
+
+| Confidence | Condition |
+|---|---|
+| `high` | spec exists AND integration/contract tests cover the boundary |
+| `medium` | one of spec or boundary tests is missing, but usage patterns are clear |
+| `low` | neither spec nor meaningful tests exist; recommendation is based on code reading only |
+
 ## What to Do When Specs Are Missing
 
 Be explicit:

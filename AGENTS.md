@@ -156,3 +156,4 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 | `unified-code-review-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
 | `design-patterns` | 設計模式選型指南，依情境推薦 AI 友善的模式，避免過度工程化 |
 | `ai-native-design` | 語言無關的 AI-native 架構設計原則，協助規劃模組邊界、分層責任、穩定介面與測試策略 |
+| `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |

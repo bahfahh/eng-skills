@@ -43,13 +43,13 @@ Explain the situation and the decision in simple language:
 
 ## Action Plan (Table)
 | Priority | Recommendation | In plain words | Outcome | Prerequisites (Spec/Tests) | Effort | Risk | Key Files |
-|---|---|---|---|---:|---:|---|
-| P1 | ... | <simple explanation for non-specialists> | ... | ... | Low/Med/High | Low/Med/High | `path`, `path` |
+|---|---|---|---|---|---|---|---|
+| P1 | ... | simple explanation for non-specialists | ... | ... | Low/Med/High | Low/Med/High | `path`, `path` |
 
 ## Module Candidate Index
 | # | Module | Status | In plain words | Main Signal(s) | Next Action | Owner/Notes |
-|---:|---|---|---|---|---|
-| 1 | ... | ready/not_ready | <why this matters + what we do next> | D-1, T-1, n_plus_1 | Do X | ... |
+|---:|---|---|---|---|---|---|
+| 1 | ... | ready/not_ready | why this matters + what we do next | D-1, T-1, n_plus_1 | Do X | ... |
 
 ## Deep Module Pass (Always)
 Summarize the top 3 business flows as a table.

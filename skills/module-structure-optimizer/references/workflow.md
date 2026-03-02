@@ -53,12 +53,11 @@ Output constraint:
 
 ## Step 4: Decide Single vs Multi-Agent
 
-Default: single-pass report.
-Escalate to multi-agent split when the scan is large or high-risk (mixed languages, data-access heavy, suspected N+1, large surface area).
+See the Hybrid Multi-Agent Rule in `../SKILL.md` for escalation conditions.
 
 If multi-agent:
-- Reviewer A: Deep Module
-- Reviewer B: Simplification
-- Reviewer C: Efficiency/Architecture
+- Reviewer A: Deep Module (reads `deep-module.md`)
+- Reviewer B: Simplification (reads `simplification.md`)
+- Reviewer C: Efficiency/Architecture (reads `efficiency-arch.md`)
 - All reviewers receive the same assembled context.
 - Final output must be de-duplicated and synthesized using the Markdown template in `output-format.md`.
