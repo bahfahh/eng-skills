@@ -20,6 +20,12 @@ Rules:
 3) Git history (non-destructive):
 - If a secret is found in current tree, check if it appears in history (do not paste it).
 
+## When hot files are sparse
+
+If the shared context contains few or no hot files for this aspect:
+- Search broadly with patterns from "What to check" section 2.
+- If still nothing found, output a single `info`-level finding: `"No secret patterns detected in scanned scope"` — do not fabricate findings or produce empty YAML.
+
 ## Severity guidance
 
 - `critical`: real secret in repo history or current tree; CI prints secrets; private key committed

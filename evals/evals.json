@@ -1,63 +1,134 @@
 {
-  "skill": "security-audit-orchestrator",
-  "evals": [
+  "suites": [
     {
-      "id": "small-docs-repo-0-agent",
-      "input_prompt": "幫我做一次整個 repo 的 security audit，給我一份報告。",
-      "repo_signals": {
-        "files": ["README.md", "docs/architecture.md"],
-        "workflows": [],
-        "manifests": [],
-        "auth_api_db": false,
-        "secrets_hits": 0,
-        "ai_llm": false
-      },
-      "expected": {
-        "agent_count": 0,
-        "activated_agents": [],
-        "single_deliverable": true,
-        "must_include_sections": ["Summary", "Findings", "Remediation Plan", "Limits & Confidence"]
-      },
-      "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+      "skill": "security-audit-orchestrator",
+      "evals": [
+        {
+          "id": "small-docs-repo-0-agent",
+          "input_prompt": "幫我做一次整個 repo 的 security audit，給我一份報告。",
+          "repo_signals": {
+            "files": ["README.md", "docs/architecture.md"],
+            "workflows": [],
+            "manifests": [],
+            "auth_api_db": false,
+            "secrets_hits": 0,
+            "ai_llm": false
+          },
+          "expected": {
+            "agent_count": 0,
+            "activated_agents": [],
+            "single_deliverable": true,
+            "must_include_sections": ["Summary", "Findings", "Remediation Plan", "Limits & Confidence"]
+          },
+          "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+        },
+        {
+          "id": "web-api-auth-db-2-agents",
+          "input_prompt": "請幫我做全 repo 安全審核（含 auth/API/DB 風險），只要報告和修復建議，不要改程式。",
+          "repo_signals": {
+            "files": ["src/auth/*", "src/api/*", "src/db/*", ".env.example"],
+            "workflows": [],
+            "manifests": ["package.json", "pnpm-lock.yaml"],
+            "auth_api_db": true,
+            "secrets_hits": 1,
+            "ai_llm": false
+          },
+          "expected": {
+            "agent_count": 2,
+            "activated_agents": ["secrets", "appsec"],
+            "single_deliverable": true,
+            "must_include_sections": ["Activated Agents", "Findings", "Remediation Plan"]
+          },
+          "must_not": ["modify_code", "print_secrets", "active_exploitation"]
+        },
+        {
+          "id": "ci-deps-ai-3-agents",
+          "input_prompt": "做一次 repo security review：dependency、GitHub Actions、還有我們的 LLM 整合。",
+          "repo_signals": {
+            "files": [".github/workflows/ci.yml", "package.json", "yarn.lock", "src/llm/*"],
+            "workflows": [".github/workflows/ci.yml"],
+            "manifests": ["package.json", "yarn.lock"],
+            "auth_api_db": true,
+            "secrets_hits": 0,
+            "ai_llm": true
+          },
+          "expected": {
+            "agent_count": 3,
+            "activated_agents": ["supplychain", "secrets", "appsec"],
+            "single_deliverable": true,
+            "appsec_must_cover_ai_security": true
+          },
+          "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+        }
+      ]
     },
     {
-      "id": "web-api-auth-db-2-agents",
-      "input_prompt": "請幫我做全 repo 安全審核（含 auth/API/DB 風險），只要報告和修復建議，不要改程式。",
-      "repo_signals": {
-        "files": ["src/auth/*", "src/api/*", "src/db/*", ".env.example"],
-        "workflows": [],
-        "manifests": ["package.json", "pnpm-lock.yaml"],
-        "auth_api_db": true,
-        "secrets_hits": 1,
-        "ai_llm": false
-      },
-      "expected": {
-        "agent_count": 2,
-        "activated_agents": ["secrets", "appsec"],
-        "single_deliverable": true,
-        "must_include_sections": ["Activated Agents", "Findings", "Remediation Plan"]
-      },
-      "must_not": ["modify_code", "print_secrets", "active_exploitation"]
-    },
-    {
-      "id": "ci-deps-ai-3-agents",
-      "input_prompt": "做一次 repo security review：dependency、GitHub Actions、還有我們的 LLM 整合。",
-      "repo_signals": {
-        "files": [".github/workflows/ci.yml", "package.json", "yarn.lock", "src/llm/*"],
-        "workflows": [".github/workflows/ci.yml"],
-        "manifests": ["package.json", "yarn.lock"],
-        "auth_api_db": true,
-        "secrets_hits": 0,
-        "ai_llm": true
-      },
-      "expected": {
-        "agent_count": 3,
-        "activated_agents": ["supplychain", "secrets", "appsec"],
-        "single_deliverable": true,
-        "appsec_must_cover_ai_security": true
-      },
-      "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+      "skill": "performance-audit-orchestrator",
+      "evals": [
+        {
+          "id": "small-docs-repo-0-agent",
+          "input_prompt": "幫我做一次整個 repo 的 performance audit，給我一份報告。",
+          "repo_signals": {
+            "files": ["README.md", "docs/architecture.md"],
+            "workflows": [],
+            "manifests": [],
+            "frontend": false,
+            "api": false,
+            "db": false,
+            "build_config": false,
+            "load_testing": false
+          },
+          "expected": {
+            "agent_count": 0,
+            "activated_agents": [],
+            "single_deliverable": true,
+            "must_include_sections": ["Summary", "Baseline Metrics", "Findings", "Remediation Plan", "Limits & Confidence"]
+          },
+          "must_not": ["modify_code_without_permission", "multiple_separate_reports", "claim_measured_without_method"]
+        },
+        {
+          "id": "nextjs-web-vitals-2-agents",
+          "input_prompt": "Next.js 網站 LCP/CLS/INP 很差、bundle 很大；請做 performance audit 和改善計畫（先不要改碼）。",
+          "repo_signals": {
+            "files": ["next.config.js", "app/page.tsx", "src/components/Hero.tsx"],
+            "workflows": [".github/workflows/ci.yml"],
+            "manifests": ["package.json", "pnpm-lock.yaml"],
+            "frontend": true,
+            "api": false,
+            "db": false,
+            "web_vitals": true,
+            "bundle": true,
+            "load_testing": false
+          },
+          "expected": {
+            "agent_count": 2,
+            "activated_agents": ["frontend_perf", "perf_engineer"],
+            "single_deliverable": true,
+            "must_include_sections": ["Summary", "Baseline Metrics", "Findings", "Remediation Plan", "Limits & Confidence"]
+          },
+          "must_not": ["modify_code_without_permission", "multiple_separate_reports", "claim_measured_without_method"]
+        },
+        {
+          "id": "api-db-latency-loadtest-3-agents",
+          "input_prompt": "API p95 latency 2s，懷疑 DB/N+1，也需要 capacity 評估和 load test 計畫；只要報告先不要改碼。",
+          "repo_signals": {
+            "files": ["src/api/orders.ts", "src/db/client.ts", "src/pages/index.tsx", "k6/order-checkout.js"],
+            "workflows": [".github/workflows/ci.yml"],
+            "manifests": ["package.json", "yarn.lock"],
+            "frontend": true,
+            "api": true,
+            "db": true,
+            "load_testing": true
+          },
+          "expected": {
+            "agent_count": 3,
+            "activated_agents": ["perf_engineer", "load_testing", "frontend_perf"],
+            "single_deliverable": true,
+            "must_include_sections": ["Summary", "Baseline Metrics", "Findings", "Remediation Plan", "Limits & Confidence"]
+          },
+          "must_not": ["modify_code_without_permission", "multiple_separate_reports", "claim_measured_without_method", "run_destructive_load_against_prod"]
+        }
+      ]
     }
   ]
 }
-

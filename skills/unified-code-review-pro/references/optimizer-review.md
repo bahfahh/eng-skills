@@ -42,39 +42,21 @@ Evaluate each axis independently. A function can score well on R1 but poorly on 
 
 ---
 
-## Additional Dimensions
+## Additional Dimensions (Architecture Lens)
 
-### Hidden Assumptions (D3)
+These dimensions overlap with Agent A (Semantic) but are evaluated here from a **maintainability and structural** perspective, not a behavioral correctness perspective. Do not re-flag the same file:line that Agent A would naturally cover — focus on architectural implications.
 
-**Question:** What does this code assume that is not stated in its interface?
+### Structural Assumptions (D3-arch)
 
-What must be true for this to work, that is not enforced by types or runtime validation?
+**Question:** What structural pre-conditions does this module rely on that are not expressed in its interface?
 
-| Assumption type | Example |
-|----------------|---------|
-| Call order | "init() must be called before process()" |
-| Data shape | "The array is always sorted" |
-| External state | "The DB connection is alive" or "env var is set" |
-| Timing | "This runs after auth middleware" |
-| Uniqueness | "File names are unique" |
-| Availability | "External API is reachable" |
+Focus on: implicit module-loading order, assumed singleton scope, DI container registration order, missing null-checks on injected dependencies, middleware sequence dependencies. Flag these when they make the module **harder to reuse or test in isolation** — not merely "could crash."
 
-Look for: functions that do not validate inputs but break on unexpected values, properties accessed without null checks, middleware ordering assumptions, DB query assumptions.
+### Interface Contract Drift (D4-arch)
 
-### Cross-layer Consistency (D4)
+**Question:** Does this change silently break the contract that callers depend on?
 
-**Question:** Is this change consistent with the layers above and below it?
-
-For each changed function, trace one layer up (caller) and one layer down (callee):
-
-| Inconsistency | Example |
-|--------------|---------|
-| Interface mismatch | API returns `{data, error}` but hook expects `data` directly |
-| Missing propagation | API adds new required field, hook does not pass it |
-| Type drift | DB column is `text`, TypeScript type says `number` |
-| Permission gap | API checks org_id but RLS does not (or vice versa) |
-| Error handling gap | API throws, caller does not catch |
-| Cache staleness | DB updated but query cache not invalidated |
+Focus on: return-type shape changes that callers have not been updated for, new required parameters added without updating all call sites, error type changes that callers don't handle, abstract base class changes that don't propagate to subclasses. Flag these when they create **silent compile-time or runtime drift**, not just style inconsistency.
 
 ---
 

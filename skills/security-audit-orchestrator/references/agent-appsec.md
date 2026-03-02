@@ -42,6 +42,12 @@ Check:
 - output filtering for sensitive leakage
 - logging/telemetry: avoid storing prompts with secrets/PII
 
+## When hot files are sparse
+
+If the shared context contains few or no hot files for this aspect:
+- Look for any route/controller/auth files in the repo root or common directories.
+- If the codebase appears to be docs/static only, output a single `info`-level finding noting the absence of application-layer attack surface — do not fabricate findings.
+
 ## Severity guidance
 
 - `critical`: authz bypass/tenant isolation failure likely; direct injection with reachable sink; AI tool privilege escalation

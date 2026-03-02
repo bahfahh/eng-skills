@@ -1,6 +1,6 @@
 ---
 name: unified-code-review-pro
-description: Unified code review orchestrator. Use whenever reviewing a PR, diff, or code change.Automatically selects review depth based on what changed — from lightweight correctness,checks to full architecture and efficiency analysis. Covers correctness, security, UX,architecture quality, and efficiency. Use this skill for any code review request,pull request review, or merge request review.
+description: Unified code review orchestrator for PRs, diffs, and code changes. Automatically selects review depth based on what changed — from lightweight correctness checks to full architecture and efficiency analysis. Covers correctness, security, UX, architecture quality, and performance. Trigger for any code review, pull request review, merge request review, or "review this change" request — even when the user doesn't explicitly say "code review".
 ---
 
 # Unified Code Review
@@ -85,7 +85,7 @@ Launch when `complexity != low` AND ANY of:
 - Signal `new-module` detected
 - Signal `architecture-change` detected
 - Signal `large-refactor` detected
-- Any file tagged `shared-util`
+- Any file tagged `shared-util` **AND** at least one structural signal (`new-module`, `architecture-change`, or `large-refactor`) is also present — a small utility fix alone does not justify full 6-axis review
 - New or changed interface/type/contract files
 
 Pass flags:
@@ -141,7 +141,10 @@ After all agents return, produce a unified report.
 [info findings from all agents]
 
 ### Architecture Verdict
-[Only if Agent B ran — include YAML verdict block]
+[Only if Agent B ran — render Agent B's YAML as a human-readable summary table:
+- One row per reviewed unit: Unit name | Verdict | Key reason
+- Follow with the top 1-2 risks from `pr_summary.top_risks`
+- If any unit is `refactor_required`, call it out explicitly in bold]
 
 ### UX Gate
 [Only if Agent A ran with UX flag — include UX gate answers]

@@ -1,6 +1,6 @@
 ---
 name: security-audit-orchestrator
-description: All-in-one security audit orchestrator for a repository. Use when asked to do a security audit/review, secrets scan, dependency or supply-chain risk review, CI/CD security review, auth/API security assessment, or pre-production security check. Intelligently decides whether to use 0–3 specialized sub-agents and always merges into a single security report. Does not modify code.
+description: All-in-one security audit orchestrator for a repository. Use whenever anyone asks to audit, review, harden, or check the security of a codebase — including secrets scanning, dependency/supply-chain risk, CI/CD pipeline security, auth/API/DB security assessment, pre-production security checklist, or post-incident investigation. Also trigger for vague asks like "is my app secure?", "what are my biggest security risks?", or "help me harden this before launch". Intelligently routes to 0–3 specialized sub-agents (Secrets / SupplyChain / AppSec) based on repo signals and always delivers a single merged report. Never modifies code.
 ---
 
 # Security Audit Orchestrator
@@ -43,7 +43,10 @@ Use `references/routing.md` to decide:
 - `agent_count` in {0,1,2,3}
 - which agents to run (Secrets / SupplyChain / AppSec)
 
-If `agent_count = 0`, perform a minimal audit yourself using the same focus areas and output schema, then produce the unified report.
+If `agent_count = 0`, perform the audit yourself inline:
+- Cover the same focus areas relevant to what was detected (e.g., review any config patterns, obvious secret candidates, missing security headers, or dependency concerns).
+- Use the same YAML finding schema from `references/output-format.md`.
+- If nothing concerning is found, output a brief findings section with an `info`-level note explaining the low-risk assessment, then produce the unified report. Do not fabricate findings.
 
 ### Step 3 — Assemble shared context (once)
 

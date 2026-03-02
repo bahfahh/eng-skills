@@ -35,6 +35,13 @@ Optional scanners (run only if applicable; failures must be reported in `limits`
 - Docker: base image pinning, `latest` tags, running as root, missing `USER`
 - Terraform/K8s: overly broad IAM/RBAC, public ingress, plaintext secrets in manifests
 
+## When hot files are sparse
+
+If workflows or IaC files are absent (only manifests in shared context):
+- Focus solely on dependency hygiene (lockfile presence, unpinned ranges, suspicious package names).
+- Note the absence of CI/CD files in `limits` — do not fabricate workflow findings.
+- If manifests are also absent, output a single `info`-level finding confirming no supply-chain surface was found.
+
 ## Severity guidance
 
 - `critical`: CI can exfiltrate secrets, unsafe `pull_request_target` patterns, unpinned third-party actions in deploy pipeline

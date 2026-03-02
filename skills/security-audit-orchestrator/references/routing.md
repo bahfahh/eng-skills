@@ -13,11 +13,15 @@ Signals (any):
 - CI usage: `secrets.` in workflows, writing secrets to logs, uploading env files as artifacts
 
 ### `supplychain_cicd`
-Signals (any):
+Primary signals (any — reliably indicates supply-chain risk worth a dedicated agent):
+- `.github/workflows/*.yml`, `Dockerfile`, `docker-compose*.yml`, `*.tf`, `helm/`, `k8s/`
+- `Cargo.toml` + `Cargo.lock` (Rust), `pom.xml`, `build.gradle*` (Java), `.csproj` (.NET)
+
+Secondary signals (manifest/lockfile only — raises workload but does NOT trigger the agent alone):
 - `package.json`, `pnpm-lock.yaml`, `yarn.lock`, `package-lock.json`
 - `requirements.txt`, `pyproject.toml`, `poetry.lock`, `Pipfile.lock`
-- `Cargo.toml`, `Cargo.lock`, `pom.xml`, `build.gradle*`, `.csproj`
-- `.github/workflows/*.yml`, `Dockerfile`, `docker-compose*.yml`, `*.tf`, `helm/`, `k8s/`
+
+Rule: `supplychain_cicd` is **detected** only when at least one primary signal is present. If only secondary signals exist, note the manifests in the AppSec or Secrets context but do not count `supplychain_cicd` as an aspect.
 
 ### `appsec`
 Signals (any):
@@ -49,13 +53,13 @@ Signals (any):
 ## 3) Decide agent count (0–3)
 
 Let:
-- `surface_count` = number of detected aspects among {secrets, supplychain_cicd, appsec} (ignore ai_llm here)
+- `surface_count` = number of detected aspects among {secrets, supplychain_cicd, appsec} (ignore ai_llm here; only primary-signal supplychain_cicd counts)
 
 Decision:
-- `0 agents` if `surface_count <= 1` AND `risk_level = low` AND `workload = low`
-- `1 agent` if `surface_count = 1` AND (`risk_level != high`) AND `workload != high`
-- `2 agents` if `surface_count = 2` OR `risk_level = high`
-- `3 agents` if `surface_count >= 3` OR (`risk_level = high` AND `workload = high`)
+- `0 agents` if `surface_count = 0` AND `risk_level = low` AND `workload = low`
+- `1 agent` if `surface_count = 1` AND `risk_level != high` AND `workload != high`
+- `2 agents` if `surface_count = 2` OR (`surface_count = 1` AND `risk_level = high`)
+- `3 agents` if `surface_count = 3` OR (`surface_count >= 2` AND `risk_level = high` AND `workload = high`)
 
 Cap at 3 agents.
 
