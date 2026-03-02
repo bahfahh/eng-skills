@@ -1,6 +1,6 @@
 ---
 name: ai-native-design
-description: AI-native design and refactor planning principles (language-agnostic). Use when a feature is done but the code feels hard to change, when modules are getting tangled and you're not sure how to untangle them, when you want to plan a refactor but don't know where to start, or when you need to design architecture/module boundaries, reduce coupling, choose Wrapper/Facade/Deep Module patterns, separate Domain/Application/Infra responsibilities, design stable contracts and error semantics, introduce policy/versioning for changing rules, and propose layered testing + migration plans across any codebase.
+description: Language-agnostic AI-native architecture and refactor planning. Use when code feels hard to change, modules are getting tangled, you need to design module boundaries or reduce coupling, or you want a structured refactor plan with layered testing and migration steps.
 ---
 
 # AI-Native Design (Principles Skill)

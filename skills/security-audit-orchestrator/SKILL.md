@@ -11,6 +11,7 @@ Hard rules:
 - Do not modify code.
 - Do not run destructive commands or exploit/attack anything.
 - Do not print secrets. If found, redact values and focus on rotation/revocation steps.
+- Static analysis only: label all findings `confidence: low` unless the user provides external evidence (scan results, CVE reports, observed incidents). Do not invent severity. When evidence arrives, revise affected findings to `confidence: high` and note what changed.
 
 References (load only when needed):
 - Always read: `references/routing.md`, `references/output-format.md`
