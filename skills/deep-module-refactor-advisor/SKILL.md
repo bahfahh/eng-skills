@@ -81,7 +81,7 @@ Use this template:
 
 ## Top 5 Hotspots
 | # | Candidate | Business flow | Why it’s a hotspot (1 sentence) | Readiness | Next step |
-|---:|---|---|---|---|
+|---:|---|---|---|---|---|
 
 ## Candidate Details
 
@@ -112,11 +112,16 @@ OR
 - What stays outside: <bullets>
 - Tests to add (if missing): <1–3 black-box tests at boundary>
 
-#### Option B — Proper Deep Module (only if ready; otherwise describe prerequisites)
+#### Option B — Proper Deep Module
 - Facade interface (domain language I/O): `<input> -> <output>`
 - What moves inside / stays outside: <bullets>
 - God-service guardrail: <if multiple responsibilities, keep facade thin and split internals>
 - Tests to add/adjust: <list>
+
+If `Status = not_ready`, replace the above with:
+- Why not ready: <missing spec sections and/or missing boundary tests — be specific>
+- Spec gaps: <list requirement sections that are unclear or absent>
+- Tests to add first: <1–3 black-box integration tests that must exist before encapsulating>
 
 ## Do Not Encapsulate Yet (if any)
 List areas where behavior is still changing or requirements/tests are missing.

@@ -48,26 +48,31 @@
 
 ### Proxy
 
-- **Use When**: Caching, access control, lazy loading
-- **Note**: May introduce unnecessary latency; verify the indirection is justified
+- **Scenario**: Adding caching, access control, rate limiting, or lazy initialization around an existing service — without modifying the service itself. Common in API gateway layers, repository caching wrappers.
+- **Risk**: May introduce unnecessary latency; verify the indirection is justified before adding
+- **Guidance**: Proxy implements the same interface as the real subject; keep it thin — one cross-cutting concern per Proxy
 
 ### State
 
-- **Risk**: State count growth leads to state explosion; AI easily confuses state transition logic
-- **Condition**: Persist state to database rather than in-memory objects only
+- **Scenario**: An object's behavior changes significantly based on its current state, and those states have clear named transitions — e.g., order lifecycle (pending → confirmed → shipped → delivered), subscription status, workflow approvals.
+- **Risk**: State count growth leads to state explosion; AI easily confuses state transition logic when states are implicit
+- **Condition**: Persist state to database rather than in-memory objects; name states explicitly as enums or constants
 
 ### Decorator
 
+- **Scenario**: Adding optional, composable behaviors to objects at runtime — e.g., adding logging, retry logic, or metrics to a service without modifying it. Useful when subclassing would produce a combinatorial explosion of classes.
 - **Risk**: With deep nesting (e.g., `new Logging(new Caching(new Auth(service)))`), AI cannot reason about final behavior order
 - **Alternative**: AOP frameworks (annotation-based) — AI understands annotations better than dynamic wrapping
-- **Condition**: Limit to 2-3 decorator layers max, each with clear responsibility
+- **Condition**: Limit to 2-3 decorator layers max, each with a single clear responsibility
 
 ### Observer
 
-- **Risk**: Implicit control flow makes it hard for AI to trace event propagation paths and debug
-- **Condition**: Only use in event-driven architectures, keep subscriber count manageable
+- **Scenario**: Decoupling event producers from consumers in genuinely event-driven architectures — UI frameworks, message queues, domain event systems where producers should not know about consumers.
+- **Risk (AI-specific)**: Implicit control flow makes it hard for AI to trace event propagation paths during debugging or code generation. AI tends to miss subscriber registrations or duplicate event emissions.
+- **Condition**: Only use when the event-driven decoupling is architecturally required; keep subscriber count manageable and document the event contract explicitly
 
 ### Template Method
 
-- **Risk**: Deep inheritance causes AI to override wrong methods
-- **Condition**: Keep inheritance to 1-2 levels max
+- **Scenario**: Multiple classes share the same algorithm skeleton but differ in specific steps — e.g., report generators that all follow fetch → transform → render but with different implementations per step.
+- **Risk**: Deep inheritance causes AI to override wrong methods or introduce unintended side effects in base class hooks
+- **Condition**: Keep inheritance to 1-2 levels max; prefer Strategy over Template Method when the varying parts can be injected as objects

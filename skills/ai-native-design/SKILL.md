@@ -1,6 +1,6 @@
 ---
 name: ai-native-design
-description: AI-native design and refactor planning principles (language-agnostic). Use when you need to plan architecture/module boundaries, reduce coupling, choose Wrapper/Facade/Deep Module, separate Domain/Application/Infra responsibilities, design stable contracts and error semantics, introduce policy/versioning for changing rules, and propose layered testing + migration plans across any codebase.
+description: AI-native design and refactor planning principles (language-agnostic). Use when a feature is done but the code feels hard to change, when modules are getting tangled and you're not sure how to untangle them, when you want to plan a refactor but don't know where to start, or when you need to design architecture/module boundaries, reduce coupling, choose Wrapper/Facade/Deep Module patterns, separate Domain/Application/Infra responsibilities, design stable contracts and error semantics, introduce policy/versioning for changing rules, and propose layered testing + migration plans across any codebase.
 ---
 
 # AI-Native Design (Principles Skill)
@@ -62,7 +62,8 @@ This skill is language/framework neutral. Translate these terms to your stack:
 - Centralize selection of policy/version in one place (do not scatter conditionals across layers).
 - Persist policy/template version with data when backward compatibility matters.
 
-8) Propose tests + migration
+8) Wrap up: propose tests + migration plan
+These are output deliverables, not a new analysis step. Produce alongside the boundary/contract decisions above.
 - Domain: property/invariant tests.
 - Application: integration tests for orchestration (BDD naming is fine here).
 - E2E: minimal critical-path smoke; assert UX signals and "no infinite loading".
@@ -87,3 +88,6 @@ Return a concise plan using these sections:
 ## Optional references
 - For copy-paste output templates: `references/templates.md`
 - For Mermaid diagram templates: `references/mermaid.md`
+
+## Note on agents/openai.yaml
+This file configures OpenAI GPT Actions integration (`allow_implicit_invocation: false`). It has no effect in Claude Code — safe to ignore unless deploying to a GPT Actions environment.

@@ -12,12 +12,9 @@ Use these when the user wants a specific structure or when you need a stable for
 - Risks/non-goals:
 
 ## One-line glossary (optional)
-- Presentation = entrypoints/triggers
-- Application/Facade = orchestration
-- Domain = rules/invariants/decisions
-- Infra/Adapters = DB/SDK/IO specifics
+See "Stack-agnostic vocabulary" in SKILL.md for the canonical definitions.
 
-## Optional: expanded memo (only if user asks)
+## Optional: expanded memo (only when user asks for a detailed report — default output format is in SKILL.md)
 1) Goal & constraints
 2) Current coupling map (include Mermaid)
 3) Proposed architecture + boundaries (include Mermaid)

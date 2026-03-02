@@ -1,6 +1,6 @@
 ---
 name: design-patterns
-description: Guide for selecting appropriate design patterns during software development. Use when making architectural decisions, creating new classes/modules, refactoring code, or when the task involves object creation, interface integration, algorithm switching, or component decoupling. Prioritize AI-friendly patterns and avoid over-engineering.
+description: Guide for selecting appropriate design patterns during software development. Use whenever the user asks how to structure code, which approach is better, how to clean up messy if-else chains, how to make code more extensible, or how to integrate two different APIs/systems. Also trigger for explicit pattern questions, architectural decisions, new class/module design, refactoring, or any "what's the best way to implement this?" question. Prioritizes AI-friendly patterns and steers away from over-engineering.
 ---
 
 # Design Patterns Selection Guide
@@ -43,7 +43,11 @@ Requirement Analysis
   ├─ Switch algorithms at runtime? → Strategy
   ├─ Encapsulate operations as executable objects? → Command
   ├─ Multi-step processing chain? → Chain of Responsibility
-  ├─ Caching / access control? → Proxy
+  ├─ Caching / access control / lazy loading? → Proxy
+  ├─ Object has distinct lifecycle states with clear transitions? → State (★★★☆☆ — persist to DB)
+  ├─ Add optional behaviors to an object without subclassing? → Decorator (★★☆☆☆ — max 2-3 layers)
+  ├─ Algorithm skeleton with variable steps across subclasses? → Template Method (★★☆☆☆ — max 2 levels)
+  ├─ Decouple event producers from consumers in event-driven arch? → Observer (★★☆☆☆ — AI caution)
   └─ None of the above? → No pattern needed, keep it simple
 ```
 

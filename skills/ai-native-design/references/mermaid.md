@@ -8,11 +8,8 @@ These diagrams are **conceptual coupling/flow sketches**, not framework-specific
 - Use diagrams to check **responsibility boundaries** and **dependency direction**.
 - Do not diagram every helper function; only show the stable concepts/entrypoints.
 
-## Vocabulary mapping (examples)
-- Presentation = entrypoints/triggers
-- Application/Facade = orchestration
-- Domain = rules/invariants/decisions
-- Infra/Adapters = I/O/integrations
+## Vocabulary mapping
+See "Stack-agnostic vocabulary" in SKILL.md for the canonical definitions. Rename diagram nodes to match your system's actual vocabulary.
 
 ## Coupling map (dependency graph)
 ```mermaid
