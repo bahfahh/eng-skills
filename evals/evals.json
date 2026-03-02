@@ -1,0 +1,63 @@
+{
+  "skill": "security-audit-orchestrator",
+  "evals": [
+    {
+      "id": "small-docs-repo-0-agent",
+      "input_prompt": "幫我做一次整個 repo 的 security audit，給我一份報告。",
+      "repo_signals": {
+        "files": ["README.md", "docs/architecture.md"],
+        "workflows": [],
+        "manifests": [],
+        "auth_api_db": false,
+        "secrets_hits": 0,
+        "ai_llm": false
+      },
+      "expected": {
+        "agent_count": 0,
+        "activated_agents": [],
+        "single_deliverable": true,
+        "must_include_sections": ["Summary", "Findings", "Remediation Plan", "Limits & Confidence"]
+      },
+      "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+    },
+    {
+      "id": "web-api-auth-db-2-agents",
+      "input_prompt": "請幫我做全 repo 安全審核（含 auth/API/DB 風險），只要報告和修復建議，不要改程式。",
+      "repo_signals": {
+        "files": ["src/auth/*", "src/api/*", "src/db/*", ".env.example"],
+        "workflows": [],
+        "manifests": ["package.json", "pnpm-lock.yaml"],
+        "auth_api_db": true,
+        "secrets_hits": 1,
+        "ai_llm": false
+      },
+      "expected": {
+        "agent_count": 2,
+        "activated_agents": ["secrets", "appsec"],
+        "single_deliverable": true,
+        "must_include_sections": ["Activated Agents", "Findings", "Remediation Plan"]
+      },
+      "must_not": ["modify_code", "print_secrets", "active_exploitation"]
+    },
+    {
+      "id": "ci-deps-ai-3-agents",
+      "input_prompt": "做一次 repo security review：dependency、GitHub Actions、還有我們的 LLM 整合。",
+      "repo_signals": {
+        "files": [".github/workflows/ci.yml", "package.json", "yarn.lock", "src/llm/*"],
+        "workflows": [".github/workflows/ci.yml"],
+        "manifests": ["package.json", "yarn.lock"],
+        "auth_api_db": true,
+        "secrets_hits": 0,
+        "ai_llm": true
+      },
+      "expected": {
+        "agent_count": 3,
+        "activated_agents": ["supplychain", "secrets", "appsec"],
+        "single_deliverable": true,
+        "appsec_must_cover_ai_security": true
+      },
+      "must_not": ["modify_code", "print_secrets", "multiple_separate_reports"]
+    }
+  ]
+}
+

@@ -136,10 +136,21 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ---
 
+## All-in-one Skills（Orchestrator）
+
+當使用者要求製作「all in one skills」時，遵守以下概念與約束：
+
+<all in one skills concept>
+## all in one skills
+- All in one skills：對外看起來是「一個完整 skill 就能把任務做完、交付結果」，但內部其實是編排器（orchestrator）——會自己拆解任務、安排步驟、整合輸出；使用者不需要知道背後有沒有多個 agent。
+- 智能分配 agent 數量：根據「任務複雜度 / 風險 / 面向數 / 工作量」決定只用自己（0 個子 agent）就能做完，或啟動 1 個專家，或啟動多個專家並行；最後一定要合併成單一結論 / 單一交付物（不是丟一堆分散回覆）。
+</all in one skills concept>
+
 ## 已完成的 Skills
 
 | Skill 名稱 | 用途 |
 |-----------|------|
+| `security-audit-orchestrator` | All-in-one 全 repo 安全審核編排器：智能啟動 0–3 子 agent（secrets / supply-chain / appsec），最後合併成單一安全報告（不改程式碼） |
 | `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
 | `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
 | `unified-code-review-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
