@@ -160,7 +160,24 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 <all in one skills concept>
 ## all in one skills
 - All in one skills：對外看起來是「一個完整 skill 就能把任務做完、交付結果」，但內部其實是編排器（orchestrator）——會自己拆解任務、安排步驟、整合輸出；使用者不需要知道背後有沒有多個 agent。
-- 智能分配 agent 數量：根據「任務複雜度 / 風險 / 面向數 / 工作量」決定只用自己（0 個子 agent）就能做完，或啟動 1 個專家，或啟動多個專家並行；最後一定要合併成單一結論 / 單一交付物（不是丟一堆分散回覆）。
+- 智能分配 agent 數量：根據以下 Decision Tree 決定配置，最後一定要合併成單一結論 / 單一交付物（不是丟一堆分散回覆）。
+
+### Agent 數量 Decision Tree
+
+在 SKILL.md 裡寫出明確的判斷邏輯：
+
+```
+1. 任務面向數與複雜度？
+   - 單一面向、範圍明確       → 0 subagent，orchestrator 自己執行
+   - 中等複雜、需專門知識     → 1 個專家 subagent
+   - 多面向、可並行、高風險   → 2–3 個專家 subagent 並行
+
+2. 各面向工作量是否值得獨立 agent？
+   - 輕量可快速完成           → 自己做
+   - 需深度分析或大量工具呼叫 → 獨立 subagent
+
+3. 無論幾個 agent，最後必須合併成單一交付物
+```
 </all in one skills concept>
 
 ## 已完成的 Skills
