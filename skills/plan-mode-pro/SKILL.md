@@ -17,7 +17,9 @@ flowchart TD
   E --> F{開發者是否已審核並確認？}
   F -- 否 --> G[補充/修訂需求內容]
   G --> F
-  F -- 是 --> H[Step 2：建立 plan / todolist / acceptance / tests]
+  F -- 是 --> EP{大型/長時間/跨多模組任務？}
+  EP -- 是 --> EPD[ExecPlan 流程\n單一 Living Document\n見 references/execplan-for-large-tasks.md]
+  EP -- 否 --> H[Step 2：建立 plan / todolist / acceptance / tests]
   H --> I[Step 3：依 todolist + plan 進行開發（TDD）]
   I --> J[Step 4：依 acceptance + tests 驗收]
   J --> K{是否全部通過？}
@@ -61,6 +63,24 @@ flowchart TD
 
 ---
 
+## ExecPlan 判斷（Step 1 完成後）
+
+需求確認完成後，判斷是否改用 ExecPlan 流程：
+
+**符合任一條件 → 使用 ExecPlan**：
+- 預計執行跨越多天或多個工作階段
+- 跨 3 個以上模組的系統變更
+- 需要原型驗證才能確認可行性
+- 未來可能由不熟悉專案的人接手
+
+使用 ExecPlan 時，Step 1 的需求確認仍然適用，但 Step 2-5 由 ExecPlan 的單一 Living Document 流程取代。
+
+詳細規範 → `references/execplan-for-large-tasks.md`
+
+**不符合 → 繼續預設流程（Step 2-5）**
+
+---
+
 ## Step 2. 建立開發文件
 
 開發者審核確認 `requirements.md` 後，建立可執行的開發文件。
@@ -79,6 +99,7 @@ flowchart TD
 - 詳細模板 → `references/writing-plan.md`
 
 **acceptance.md**：驗收條件（Given/When/Then）、error cases、edge cases
+- 詳細模板 → `references/writing-acceptance.md`
 
 **tests.md**：測試分層（Property-Based / Integration / Unit / E2E）、測試檔案清單、執行指令
 - 詳細模板 → `references/writing-test.md`

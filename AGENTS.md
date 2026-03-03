@@ -201,3 +201,10 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 | `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
 | `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
 
+# 常見錯誤寫法
+
+- **寫知識點**：AI 已知的概念（BDD、TDD、Design Pattern、HTTP 狀態碼…）不需要解釋。只寫 AI 不知道的：專案特有流程、獨特約束、領域專屬規則。
+- **寫範例**：示範對話、範例程式碼、填好的模板——AI 看完就忘，不如直接給結構讓 AI 自己填。例外：範例是傳遞「規格要求」而非「教學」時可以保留。
+- **重複說同一件事**：同一概念在多個 section 反覆出現（如 Success Criteria 的重要性），只說一次即可。
+- **分步驟寫 AI 執行指令**：「步驟 1、步驟 2、步驟 3」這種格式是在教 AI 做牠已經會做的事。改成要求（constraint）或結構（structure）即可。
+- **過度解釋為什麼**：「之所以這樣做，是因為……」略去，直接給指令。
