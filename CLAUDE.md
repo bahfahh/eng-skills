@@ -149,7 +149,42 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 3. **釐清細節**：詢問邊界案例、格式需求、相依套件
 4. **撰寫 SKILL.md**：寫好 frontmatter 與指令內容
 5. **建立測試案例**：在 `evals/evals.json` 寫 2-3 個真實測試情境（含 1 個不該觸發的負例）
-6. **測試與迭代**：觀察 Claude 實際使用行為，針對症狀改 description 或指令
+6. **內容品質迭代**：用 subagent 跑測試，比對輸出品質，根據結果改 SKILL.md 指令內容（見下方）
+7. **Description 觸發優化**：內容確定後，再優化 description 的觸發準確度（見下方）
+
+---
+
+## 測試與迭代方法
+
+### 內容品質迭代（先做）
+
+測試 skill 執行後的輸出品質是否達標。
+
+對每個 eval 案例，啟動兩個 subagent 並行：
+- **with_skill**：給 subagent SKILL.md 路徑 + eval prompt，讓它依照 skill 執行
+- **without_skill**（baseline）：同樣的 prompt，不給 skill，讓 Claude 自己做
+
+比對輸出差異，判斷 skill 有沒有帶來明顯提升。根據問題改 SKILL.md 的指令內容，重複直到滿意。
+
+> **注意**：改的是 SKILL.md 的指令邏輯，不是 description。
+
+### Description 觸發優化（後做）
+
+內容確定後，測試 description 有沒有讓 Claude 在對的時機觸發 skill。
+
+準備 10–20 個 query，分兩類：
+- `should_trigger: true`：使用者確實需要這個 skill 的情境
+- `should_trigger: false`：近似但 Claude 自己就能處理、不需要 skill 的情境
+
+用 subagent 模擬：給它 skill 的 name + description，問它「面對這個 query，你會不會用這個 skill？」收集結果，針對失敗的 query 調整 description 措辭。
+
+**常見問題與修正方向：**
+
+| 症狀 | 原因 | 修正 |
+|------|------|------|
+| should_trigger=true 沒觸發 | description 太模糊或被動 | 補入使用者真實語句、具體觸發情境 |
+| should_trigger=false 誤觸發 | description 範圍太廣 | 加 `Do NOT use for...` 明確排除情境 |
+| 複雜情境觸發、簡單情境也觸發 | 缺少複雜度門檻描述 | 加入「多模組/多面向」作為必要條件 |
 
 ---
 
