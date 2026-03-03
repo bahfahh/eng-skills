@@ -4,7 +4,9 @@
       "WebFetch(domain:github.com)",
       "Bash(mkdir:*)",
       "Bash(wc:*)",
-      "Bash(gh repo:*)"
+      "Bash(gh repo:*)",
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)"
     ]
   }
 }
