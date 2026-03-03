@@ -1,11 +1,12 @@
 # Skills 創建專案
 
-使用者提出需求，由此專案產出對應的 skill。
+使用者提出需求，由此專案產出對應的 skill。**目標：AI 依照本文件，生成出高品質、可直接使用的 skill。**
 
 ---
 
 ## 參考來源
 
+- **官方完整指南**：[The Complete Guide to Building Skills for Claude](./The-Complete-Guide-to-Building-Skill/The-Complete-Guide-to-Building-Skill-for-Claude.extracted.txt)
 - 結構規範：[SKILL.md](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md)
 - 官方最佳實踐：[agent-skills/best-practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
 - [skills-best-practices](https://github.com/mgechev/skills-best-practices)
@@ -18,12 +19,24 @@
 
 不確定需求時，以選擇題詢問使用者，對齊用途與範圍後再開始建立。
 
-### Skill 的兩種類型
+### Skill 的分類維度
 
-| 類型 | 說明 |
-|------|------|
-| 工具型 | 提供腳本或命令讓 Claude 執行 |
-| 指導型 | 提供流程或規則讓 Claude 遵循 |
+每個 Skill 同時具備兩個維度，各自獨立選擇：
+
+**維度 1：實作形式**（指令怎麼寫）
+
+| 形式 | 說明 | 何時用 |
+|------|------|--------|
+| 工具型 | 提供腳本或命令讓 Claude 執行 | 步驟確定、需要確定性輸出 |
+| 指導型 | 提供流程或規則讓 Claude 遵循 | 步驟需判斷、或純知識型任務 |
+
+**維度 2：應用類型**（Skill 解決什麼問題）
+
+| 應用類型 | 說明 | 詳細參考 |
+|----------|------|----------|
+| 產出型 | 生成文件、設計、程式碼等輸出物 | [category-document-creation.md](./references/category-document-creation.md) |
+| 流程自動化型 | 多步驟流程、orchestrator | [category-workflow-automation.md](./references/category-workflow-automation.md) |
+| MCP 增強型 | 為既有 MCP 工具補充工作流程指導 | [category-mcp-enhancement.md](./references/category-mcp-enhancement.md) |
 
 ---
 
@@ -129,10 +142,14 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 ## 建立流程
 
 1. **捕捉意圖**：確認 Skill 的用途、觸發時機、期望輸出
-2. **釐清細節**：詢問邊界案例、格式需求、相依套件
-3. **撰寫 SKILL.md**：寫好 frontmatter 與指令內容
-4. **建立測試案例**：在 `evals/evals.json` 寫 2-3 個真實測試情境
-5. **測試與迭代**：觀察 Claude 實際使用行為，針對問題改進
+2. **判斷應用類型**，讀取對應參考文件再繼續：
+   - 產出型 → [category-document-creation.md](./references/category-document-creation.md)
+   - 流程自動化型 → [category-workflow-automation.md](./references/category-workflow-automation.md)
+   - MCP 增強型 → [category-mcp-enhancement.md](./references/category-mcp-enhancement.md)
+3. **釐清細節**：詢問邊界案例、格式需求、相依套件
+4. **撰寫 SKILL.md**：寫好 frontmatter 與指令內容
+5. **建立測試案例**：在 `evals/evals.json` 寫 2-3 個真實測試情境（含 1 個不該觸發的負例）
+6. **測試與迭代**：觀察 Claude 實際使用行為，針對症狀改 description 或指令
 
 ---
 
@@ -148,12 +165,22 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ## 已完成的 Skills
 
+### 規劃類
 | Skill 名稱 | 用途 |
 |-----------|------|
-| `security-audit-orchestrator` | All-in-one 全 repo 安全審核編排器：智能啟動 0–3 子 agent（secrets / supply-chain / appsec），最後合併成單一安全報告（不改程式碼） |
-| `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
-| `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
-| `unified-code-review-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
 | `design-patterns` | 設計模式選型指南，依情境推薦 AI 友善的模式，避免過度工程化 |
 | `ai-native-design` | 語言無關的 AI-native 架構設計原則，協助規劃模組邊界、分層責任、穩定介面與測試策略 |
+
+### 審查類
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `unified-code-review-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
+| `security-audit-orchestrator` | All-in-one 全 repo 安全審核編排器：智能啟動 0–3 子 agent（secrets / supply-chain / appsec），最後合併成單一安全報告（不改程式碼） |
+
+### 重構類
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
+| `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
 | `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
+
