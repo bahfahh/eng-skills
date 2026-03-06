@@ -1,5 +1,5 @@
 ---
-name: performance-audit-orchestrator
+name: review-gate-performance-audit
 description: All-in-one performance audit orchestrator for a repository or system. Use when asked to analyze or optimize performance issues such as slow APIs, high latency (p95/p99), slow queries/N+1, memory leaks/OOM, large bundles, slow builds, caching/CDN strategy, Core Web Vitals (LCP/CLS/INP), load testing/capacity planning, or performance monitoring (APM/RUM/tracing). Intelligently decides whether to use 0–3 specialized sub-agents and always merges into a single performance report. Asks before making any code/config edits.
 ---
 

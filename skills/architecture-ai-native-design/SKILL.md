@@ -1,5 +1,5 @@
 ---
-name: ai-native-design
+name: architecture-ai-native-design
 description: Language-agnostic AI-native architecture and refactor planning. Use when code feels hard to change, modules are getting tangled, you need to design module boundaries or reduce coupling, or you want a structured refactor plan with layered testing and migration steps.
 ---
 

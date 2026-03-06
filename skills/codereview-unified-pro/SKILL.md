@@ -1,5 +1,5 @@
 ---
-name: unified-code-review-pro
+name: codereview-unified-pro
 description: Unified code review orchestrator for PRs and code changes that span multiple files, modules, or concerns. Launches specialized sub-reviews in parallel — correctness, security, architecture, UX, and performance — then synthesizes a single report. Use when reviewing a completed feature, a PR before merge, or a refactor that touches multiple areas. Do NOT use for single-function questions, one-liner fixes, quick looks at a trivial diff, writing commit messages, or comparing two code snippets.
 ---
 

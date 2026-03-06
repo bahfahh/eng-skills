@@ -1,5 +1,5 @@
 ---
-name: nextjs-checklist
+name: frontend-nextjs-checklist
 description: "Next.js development quality checklist for App Router, auth/session safety, data fetching, bundle optimization, and version upgrades. Use whenever the task involves Next.js — including: planning or implementing any Next.js feature (App Router pages, middleware, Server/Client Components, server actions); debugging Next.js-specific issues (session hang, params await errors, router.push redirect loops, hydration mismatches, tab restore loading); reviewing Next.js code for auth patterns, data fetching strategy, or component boundaries; upgrading Next.js versions (14→15 breaking changes, async params/cookies/headers). Do NOT use for general React questions without Next.js, backend API reviews, Vue/Nuxt, or pure frontend UX/accessibility concerns unrelated to Next.js."
 ---
 

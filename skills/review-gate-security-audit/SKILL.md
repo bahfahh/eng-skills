@@ -1,5 +1,5 @@
 ---
-name: security-audit-orchestrator
+name: review-gate-security-audit
 description: All-in-one security audit orchestrator for a repository. Use whenever anyone asks to audit, review, harden, or check the security of a codebase — including secrets scanning, dependency/supply-chain risk, CI/CD pipeline security, auth/API/DB security assessment, pre-production security checklist, or post-incident investigation. Also trigger for vague asks like "is my app secure?", "what are my biggest security risks?", or "help me harden this before launch". Intelligently routes to 0–3 specialized sub-agents (Secrets / SupplyChain / AppSec) based on repo signals and always delivers a single merged report. Never modifies code.
 ---
 

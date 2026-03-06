@@ -1,5 +1,5 @@
 ---
-name: deep-module-refactor-advisor
+name: review-gate-deep-module-refactor-advisor
 description: Audit a mature codebase for shallow modules, high coupling, and call-site “recipes”, then propose deep-module (facade) encapsulation options with a strict requirements+tests gate to avoid over-engineering. Use during refactors after features are mostly stable. Output an analysis report with relationship evidence (graph or recipe), readiness (ready/not_ready), and 2 options per candidate (minimal wrapper vs proper deep module). Supports TS/JS and .NET/C# by reading the repo (no scripts). Do not modify code by default.
 ---
 

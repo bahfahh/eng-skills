@@ -1,5 +1,5 @@
 ---
-name: module-structure-optimizer
+name: review-gate-module-structure-optimizer
 description: Deep module + simplification + efficiency/architecture optimizer for post-feature refactors.Use when a large feature is already implemented and you want to (1) identify deep-module/facade candidates and encapsulate stable behavior with integration/contract tests, (2) simplify/remove redundant or meaningless code and unnecessary abstraction without changing behavior, and (3) detect architecture/performance risks (e.g., N+1 queries, sequential awaits, broad DB reads).
 ---
 

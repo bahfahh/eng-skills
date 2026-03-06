@@ -1,5 +1,5 @@
 ---
-name: design-patterns
+name: architecture-design-patterns
 description: Guide for selecting appropriate design patterns during software development. Use whenever the user asks how to structure code, which approach is better, how to clean up messy if-else chains, how to make code more extensible, or how to integrate two different APIs/systems. Also trigger for explicit pattern questions, architectural decisions, new class/module design, refactoring, or any "what's the best way to implement this?" question. Prioritizes AI-friendly patterns and steers away from over-engineering.
 ---
 
