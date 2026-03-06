@@ -259,6 +259,7 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 | `plan-mode-pro` | 結構化規劃流程，產出 requirements.md、plan.md、todolist.md、acceptance.md、tests.md |
 
 ---
+### `db-` 類
 
 ## 規劃中的 Skills
 
