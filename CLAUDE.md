@@ -84,6 +84,7 @@ description: ...          # 最多 1024 字元，不能含 XML 標籤
 | `codereview-` | 代碼審查 |
 | `review-gate-` | 審計、效能、安全、重構分析（不改程式碼） |
 | `plan-mode-` | 規劃流程 |
+| `db-` | Supabase 資料庫開發（migration、RLS、schema） |
 | `backend-` | 後端開發（API、DB、auth） |
 | `test-` | 測試策略、覆蓋率、E2E |
 
@@ -258,8 +259,12 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 |-----------|------|
 | `plan-mode-pro` | 結構化規劃流程，產出 requirements.md、plan.md、todolist.md、acceptance.md、tests.md |
 
----
 ### `db-` 類
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `db-supabase-checklist` | Supabase DB 開發清單（兩種模式）：(1) coding/plan 模式—DB 變更前補充 todolist；(2) code review 模式—審查 migration、RLS policy、資料完整性。涵蓋 migration 命名規範、RLS policy 設計、多租戶隔離、idempotency、soft delete、TypeScript 型別同步 |
+
+---
 
 ## 規劃中的 Skills
 
