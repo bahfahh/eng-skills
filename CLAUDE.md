@@ -71,13 +71,23 @@ description: ...          # 最多 1024 字元，不能含 XML 標籤
 ---
 ```
 
-### name 命名建議
+### name 命名規則
 
-使用動名詞形式（gerund），清楚表達 Skill 的動作：
+格式：`{category}-{skill-name}`
 
-- `processing-pdfs`、`analyzing-spreadsheets`（推薦）
-- `pdf-processing`、`pdf-analyzer`（可接受）
-- `helper`、`utils`、`tools`（避免，過於模糊）
+所有 skill 必須以分類前綴開頭，對應下表的類別：
+
+| 類別前綴 | 說明 |
+|---|---|
+| `frontend-` | 前端開發（React、Next.js、UI/UX） |
+| `architecture-` | 架構設計、模式選型 |
+| `codereview-` | 代碼審查 |
+| `review-gate-` | 審計、效能、安全、重構分析（不改程式碼） |
+| `plan-mode-` | 規劃流程 |
+| `backend-` | 後端開發（API、DB、auth） |
+| `test-` | 測試策略、覆蓋率、E2E |
+
+範例：`frontend-checklist`、`review-gate-security-audit`、`backend-api-design`
 
 ---
 
@@ -217,30 +227,53 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ## 已完成的 Skills
 
-### 開發流程類（Checklist）
+### `frontend-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
 | `frontend-checklist` | 前端開發品質清單（兩種模式）：(1) coding/plan 模式—開發前讀取補充 todolist；(2) code review 模式—依清單審查完成的前端程式碼。涵蓋互動狀態、write path、auth/session、響應式設計等 AI 常遺漏的 UX 問題 |
-| `nextjs-checklist` | Next.js 開發品質清單（三種模式）：(1) coding/plan 模式；(2) code review 模式；(3) upgrade 模式（版本升級工作流）。涵蓋 App Router、auth/session 安全、資料獲取策略、bundle 優化、Next.js 15 async API 變化 |
+| `frontend-nextjs-checklist` | Next.js 開發品質清單（三種模式）：(1) coding/plan 模式；(2) code review 模式；(3) upgrade 模式（版本升級工作流）。涵蓋 App Router、auth/session 安全、資料獲取策略、bundle 優化、Next.js 15 async API 變化 |
 
-### 規劃類
+### `architecture-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
-| `design-patterns` | 設計模式選型指南，依情境推薦 AI 友善的模式，避免過度工程化 |
-| `ai-native-design` | 語言無關的 AI-native 架構設計原則，協助規劃模組邊界、分層責任、穩定介面與測試策略 |
+| `architecture-design-patterns` | 設計模式選型指南，依情境推薦 AI 友善的模式，避免過度工程化 |
+| `architecture-ai-native-design` | 語言無關的 AI-native 架構設計原則，協助規劃模組邊界、分層責任、穩定介面與測試策略 |
 
-### 審查類
+### `codereview-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
-| `unified-code-review-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
-| `security-audit-orchestrator` | All-in-one 全 repo 安全審核編排器：智能啟動 0–3 子 agent（secrets / supply-chain / appsec），最後合併成單一安全報告（不改程式碼） |
+| `codereview-unified-pro` | PR/diff 審查協調器，依變更內容自動選擇審查深度，平行執行正確性、安全性、架構、效率等多維度審查 |
 
-### 重構類
+### `review-gate-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
-| `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
-| `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
-| `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
+| `review-gate-security-audit` | All-in-one 全 repo 安全審核編排器：智能啟動 0–3 子 agent（secrets / supply-chain / appsec），最後合併成單一安全報告（不改程式碼） |
+| `review-gate-deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
+| `review-gate-module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
+| `review-gate-performance-audit` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
+
+### `plan-mode-` 類
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `plan-mode-pro` | 結構化規劃流程，產出 requirements.md、plan.md、todolist.md、acceptance.md、tests.md |
+
+---
+
+## 規劃中的 Skills
+
+### `backend-` 類（待建立）
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `backend-api-design` | REST/GraphQL API 設計審查：endpoint 命名、錯誤處理、版本策略、冪等性 |
+| `backend-database-design` | DB schema 審查：正規化、索引策略、migration 安全性、N+1 偵測 |
+| `backend-auth-patterns` | 後端 auth/authz 模式：JWT、session、RBAC/ABAC、token refresh 安全 |
+
+### `test-` 類（待建立）
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `test-strategy` | 測試策略規劃：測試金字塔、邊界選擇、mock vs real 決策樹 |
+| `test-coverage-audit` | 覆蓋率分析：找出未測試的 critical path，輸出補測建議報告 |
+| `test-e2e-orchestrator` | E2E 測試編排：場景規劃、flaky test 偵測、CI 整合建議 |
 
 ## 實踐注意事項
 
