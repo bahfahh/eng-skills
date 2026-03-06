@@ -232,6 +232,7 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 |-----------|------|
 | `frontend-checklist` | 前端開發品質清單（兩種模式）：(1) coding/plan 模式—開發前讀取補充 todolist；(2) code review 模式—依清單審查完成的前端程式碼。涵蓋互動狀態、write path、auth/session、響應式設計等 AI 常遺漏的 UX 問題 |
 | `frontend-nextjs-checklist` | Next.js 開發品質清單（三種模式）：(1) coding/plan 模式；(2) code review 模式；(3) upgrade 模式（版本升級工作流）。涵蓋 App Router、auth/session 安全、資料獲取策略、bundle 優化、Next.js 15 async API 變化 |
+| `frontend-nextjs-api-checklist` | Next.js Route Handler（API）開發清單（兩種模式）：(1) coding/plan 模式—建立 API route 前的完整 6 階段清單；(2) code review 模式—審查 route handler 安全性與結構。涵蓋 auth 驗證順序、service layer 分離、統一 response envelope、錯誤處理、multi-tenant 隔離、React Query 整合、驗收測試 |
 
 ### `architecture-` 類
 | Skill 名稱 | 用途 |

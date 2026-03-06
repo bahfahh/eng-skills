@@ -19,7 +19,10 @@
       "Bash(mv \"$BASE/performance-audit-orchestrator\" \"$BASE/review-gate-performance-audit\")",
       "Bash(mv \"$BASE/security-audit-orchestrator\" \"$BASE/review-gate-security-audit\")",
       "Bash(mv \"$BASE/unified-code-review-pro\" \"$BASE/codereview-unified-pro\")",
-      "Bash(mv \"$BASE/nextjs-checklist\" \"$BASE/frontend-nextjs-checklist\")"
+      "Bash(mv \"$BASE/nextjs-checklist\" \"$BASE/frontend-nextjs-checklist\")",
+      "Bash(python:*)",
+      "Bash(__NEW_LINE_e58f347a9692fb03__ for:*)",
+      "Read(//tmp/**)"
     ]
   }
 }
