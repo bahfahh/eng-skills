@@ -149,7 +149,42 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 3. **釐清細節**：詢問邊界案例、格式需求、相依套件
 4. **撰寫 SKILL.md**：寫好 frontmatter 與指令內容
 5. **建立測試案例**：在 `evals/evals.json` 寫 2-3 個真實測試情境（含 1 個不該觸發的負例）
-6. **測試與迭代**：觀察 Claude 實際使用行為，針對症狀改 description 或指令
+6. **內容品質迭代**：用 subagent 跑測試，比對輸出品質，根據結果改 SKILL.md 指令內容（見下方）
+7. **Description 觸發優化**：內容確定後，再優化 description 的觸發準確度（見下方）
+
+---
+
+## 測試與迭代方法
+
+### 內容品質迭代（先做）
+
+測試 skill 執行後的輸出品質是否達標。
+
+對每個 eval 案例，啟動兩個 subagent 並行：
+- **with_skill**：給 subagent SKILL.md 路徑 + eval prompt，讓它依照 skill 執行
+- **without_skill**（baseline）：同樣的 prompt，不給 skill，讓 Claude 自己做
+
+比對輸出差異，判斷 skill 有沒有帶來明顯提升。根據問題改 SKILL.md 的指令內容，重複直到滿意。
+
+> **注意**：改的是 SKILL.md 的指令邏輯，不是 description。
+
+### Description 觸發優化（後做）
+
+內容確定後，測試 description 有沒有讓 Claude 在對的時機觸發 skill。
+
+準備 10–20 個 query，分兩類：
+- `should_trigger: true`：使用者確實需要這個 skill 的情境
+- `should_trigger: false`：近似但 Claude 自己就能處理、不需要 skill 的情境
+
+用 subagent 模擬：給它 skill 的 name + description，問它「面對這個 query，你會不會用這個 skill？」收集結果，針對失敗的 query 調整 description 措辭。
+
+**常見問題與修正方向：**
+
+| 症狀 | 原因 | 修正 |
+|------|------|------|
+| should_trigger=true 沒觸發 | description 太模糊或被動 | 補入使用者真實語句、具體觸發情境 |
+| should_trigger=false 誤觸發 | description 範圍太廣 | 加 `Do NOT use for...` 明確排除情境 |
+| 複雜情境觸發、簡單情境也觸發 | 缺少複雜度門檻描述 | 加入「多模組/多面向」作為必要條件 |
 
 ---
 
@@ -182,6 +217,12 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ## 已完成的 Skills
 
+### 開發流程類（Checklist）
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `frontend-checklist` | 前端開發品質清單（兩種模式）：(1) coding/plan 模式—開發前讀取補充 todolist；(2) code review 模式—依清單審查完成的前端程式碼。涵蓋互動狀態、write path、auth/session、響應式設計等 AI 常遺漏的 UX 問題 |
+| `nextjs-checklist` | Next.js 開發品質清單（三種模式）：(1) coding/plan 模式；(2) code review 模式；(3) upgrade 模式（版本升級工作流）。涵蓋 App Router、auth/session 安全、資料獲取策略、bundle 優化、Next.js 15 async API 變化 |
+
 ### 規劃類
 | Skill 名稱 | 用途 |
 |-----------|------|
@@ -200,6 +241,20 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 | `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
 | `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
 | `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
+
+## 實踐注意事項
+
+
+### 跨 Skill 依賴的寫法
+
+不要寫死路徑（如 `.kiro/skills/react-best-practices/SKILL.md`），改寫 skill 名稱：
+
+```markdown
+Load the `react-best-practices` skill for detailed performance rules.
+```
+Claude 看到 skill 名稱會自動在已安裝的 skills 中查找，路徑寫死會在其他專案失效。
+
+---
 
 # 常見錯誤寫法
 

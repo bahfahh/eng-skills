@@ -217,6 +217,12 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ## 已完成的 Skills
 
+### 開發流程類（Checklist）
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `frontend-checklist` | 前端開發品質清單（兩種模式）：(1) coding/plan 模式—開發前讀取補充 todolist；(2) code review 模式—依清單審查完成的前端程式碼。涵蓋互動狀態、write path、auth/session、響應式設計等 AI 常遺漏的 UX 問題 |
+| `nextjs-checklist` | Next.js 開發品質清單（三種模式）：(1) coding/plan 模式；(2) code review 模式；(3) upgrade 模式（版本升級工作流）。涵蓋 App Router、auth/session 安全、資料獲取策略、bundle 優化、Next.js 15 async API 變化 |
+
 ### 規劃類
 | Skill 名稱 | 用途 |
 |-----------|------|
@@ -235,6 +241,20 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 | `deep-module-refactor-advisor` | 審計成熟 codebase 的淺層模組與高耦合問題，產出 facade 封裝建議報告（不改程式碼） |
 | `module-structure-optimizer` | 功能完成後的後續優化：找封裝候選、移除冗餘抽象、偵測架構/效能風險（N+1、循序 await 等），輸出重構計畫報告 |
 | `performance-audit-orchestrator` | All-in-one 全 repo 效能審計編排器：智能啟動 0–4 子 agent（frontend perf / performance engineer / load testing / test automation），最後合併成單一效能報告（不改程式碼） |
+
+## 實踐注意事項
+
+
+### 跨 Skill 依賴的寫法
+
+不要寫死路徑（如 `.kiro/skills/react-best-practices/SKILL.md`），改寫 skill 名稱：
+
+```markdown
+Load the `react-best-practices` skill for detailed performance rules.
+```
+Claude 看到 skill 名稱會自動在已安裝的 skills 中查找，路徑寫死會在其他專案失效。
+
+---
 
 # 常見錯誤寫法
 
