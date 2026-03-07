@@ -17,7 +17,7 @@
 | 架構設計 | `db-supabase-checklist` coding mode (你的) | DB schema / RLS 規劃 |
 | 開發前準備 | `next-checklist` coding/plan mode (你的) | 補 todolist，防止 Next.js 常見陷阱 |
 | 開發中 | `next-official-best-practices` (官方, user-invocable: false) | 被其他 skill 引用；RSC / async API / routing 規則 |
-| 開發中 | `next-official-cache-components` (官方) | caching 策略 |
+| 開發中 | `next-official-cache-components` (官方) | caching 策略（Next.js 16+ 才適用） |
 | 開發中 | `next-api-checklist` (你的) | Route Handler / API 設計 |
 | 開發中 | `db-supabase-checklist` coding mode (你的) | migration / RLS 變更 |
 | Code Review | `codereview-unified-pro` (你的) ⭐ 共用 | PR 全面審查（主入口） |
@@ -28,7 +28,7 @@
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | 全 repo 效能審計 |
 | 深度審計 | `review-gate-module-structure-optimizer` (你的) ⭐ 共用 | 封裝候選、N+1、循序 await |
 | 深度審計 | `review-gate-deep-module-refactor-advisor` (你的) ⭐ 共用 | 淺層模組、高耦合分析 |
-| Deploy | `vercel-deploy` (官方) | Vercel 部署腳本 |
+| Deploy | `vercel-official-deploy` (官方) | Vercel 部署腳本 |
 | 版本升級 | `next-official-upgrade` (官方) | 動態抓最新 migration guide + 跑 codemod |
 
 ---
@@ -59,9 +59,9 @@
 | 規劃 | `plan-mode-pro` (你的) ⭐ 共用 | |
 | 架構設計 | `architecture-ai-native-design` (你的) ⭐ 共用 | |
 | 架構設計 | `architecture-design-patterns` (你的) ⭐ 共用 | |
-| 開發中 | _(待建立 `backend-dotnet-checklist`)_ | .NET 特有陷阱、DI、middleware、EF Core |
-| Code Review | `codereview-unified-pro` (你的) ⭐ 共用 | PR 全面審查 |
-| Code Review | _(待建立 `backend-dotnet-checklist` review mode)_ | .NET 專項審查 |
+| 開發前準備 / 開發中 | `backend-dotnet-checklist` coding/plan mode (你的) | 補 todolist + 開發中參考 Core Guardrails 與 references/ |
+| Code Review | `codereview-unified-pro` (你的) ⭐ 共用 | PR 全面審查（主入口） |
+| Code Review | `backend-dotnet-checklist` review mode (你的) | .NET 專項深度審查 |
 | 深度審計 | `review-gate-security-audit` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-module-structure-optimizer` (你的) ⭐ 共用 | |
@@ -93,6 +93,7 @@
 | `next-upgrade` | `next-official-upgrade` |
 | `vercel-react-best-practices` | `react-official-best-practices` |
 | `web-design-guidelines` | `web-official-design-guidelines` |
+| `vercel-deploy` | `vercel-official-deploy` |
 
 ---
 
@@ -100,4 +101,4 @@
 
 | Skill | 對應 Stack | 用途 |
 |-------|-----------|------|
-| `backend-dotnet-checklist` | .NET | 開發前補 todolist + code review，涵蓋 DI、middleware、EF Core、async/await 陷阱 |
+| _(目前無待建立項目)_ | | |

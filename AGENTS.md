@@ -162,6 +162,11 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 5. **建立測試案例**：在 `evals/evals.json` 寫 2-3 個真實測試情境（含 1 個不該觸發的負例）
 6. **內容品質迭代**：用 subagent 跑測試，比對輸出品質，根據結果改 SKILL.md 指令內容（見下方）
 7. **Description 觸發優化**：內容確定後，再優化 description 的觸發準確度（見下方）
+8. **清除測試資料**：品質確認 OK 後，刪除 `evals/` 目錄與測試 workspace（`<skill-name>-workspace/`），不保留在專案中
+9. **更新文件**：新增或修改 skill 後，同步更新以下文件：
+   - `AGENTS.md` — 已完成 Skills 表格加入新 skill
+   - `CLAUDE.md` — 若有影響 Claude 行為的全域規則，同步更新
+   - `myresearch/allskill分配.md` — 對應 stack 的流程表格更新
 
 ---
 
@@ -268,12 +273,10 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 
 ## 規劃中的 Skills
 
-### `backend-` 類（待建立）
+### `backend-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
-| `backend-api-design` | REST/GraphQL API 設計審查：endpoint 命名、錯誤處理、版本策略、冪等性 |
-| `backend-database-design` | DB schema 審查：正規化、索引策略、migration 安全性、N+1 偵測 |
-| `backend-auth-patterns` | 後端 auth/authz 模式：JWT、session、RBAC/ABAC、token refresh 安全 |
+| `backend-dotnet-checklist` | ASP.NET Core / C# 開發清單（兩種模式）：(1) coding/plan 模式—開發前補 todolist，優先檢查 8 條 Core Guardrails（DI scope、async/await、EF Core NoTracking、IOptions 等）；(2) code review 模式—依清單審查 .NET 程式碼。內建 C# 標準、EF Core patterns、並發模式三份 references，自給自足不依賴外部 skills |
 
 ### `test-` 類（待建立）
 | Skill 名稱 | 用途 |
