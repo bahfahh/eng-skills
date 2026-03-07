@@ -166,7 +166,7 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 9. **更新文件**：新增或修改 skill 後，同步更新以下文件：
    - `AGENTS.md` — 已完成 Skills 表格加入新 skill
    - `CLAUDE.md` — 若有影響 Claude 行為的全域規則，同步更新
-   - `myresearch/allskill分配.md` — 對應 stack 的流程表格更新
+   - `skills/allskill分配.md` — 對應 stack 的流程表格更新
 
 ---
 
@@ -269,14 +269,14 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 |-----------|------|
 | `db-supabase-checklist` | Supabase DB 開發清單（兩種模式）：(1) coding/plan 模式—DB 變更前補充 todolist；(2) code review 模式—審查 migration、RLS policy、資料完整性。涵蓋 migration 命名規範、RLS policy 設計、多租戶隔離、idempotency、soft delete、TypeScript 型別同步 |
 
----
-
-## 規劃中的 Skills
-
 ### `backend-` 類
 | Skill 名稱 | 用途 |
 |-----------|------|
 | `backend-dotnet-checklist` | ASP.NET Core / C# 開發清單（兩種模式）：(1) coding/plan 模式—開發前補 todolist，優先檢查 8 條 Core Guardrails（DI scope、async/await、EF Core NoTracking、IOptions 等）；(2) code review 模式—依清單審查 .NET 程式碼。內建 C# 標準、EF Core patterns、並發模式三份 references，自給自足不依賴外部 skills |
+
+---
+
+## 規劃中的 Skills
 
 ### `test-` 類（待建立）
 | Skill 名稱 | 用途 |
