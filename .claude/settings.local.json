@@ -22,7 +22,12 @@
       "Bash(mv \"$BASE/nextjs-checklist\" \"$BASE/frontend-nextjs-checklist\")",
       "Bash(python:*)",
       "Bash(__NEW_LINE_e58f347a9692fb03__ for:*)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "WebSearch",
+      "Bash(explorer.exe /tmp/eval_review_bugfix-systematic.html 2>/dev/null || wslview /tmp/eval_review_bugfix-systematic.html 2>/dev/null || xdg-open /tmp/eval_review_bugfix-systematic.html 2>/dev/null || echo \"cannot open browser\")",
+      "Bash(wslview /tmp/eval_review_bugfix-systematic.html 2>/dev/null || xdg-open /tmp/eval_review_bugfix-systematic.html 2>/dev/null || echo \"open manually: /tmp/eval_review_bugfix-systematic.html\")",
+      "Bash(echo $ANTHROPIC_API_KEY | head -c 10)",
+      "Bash(cp -r \"/mnt/c/ai研究專用 agent/研究區/skillscreater/.kiro/skills/plan-mode-bugfix\" \"/mnt/c/ai研究專用 agent/研究區/skillscreater/skills/bugfix-systematic\")"
     ]
   }
 }

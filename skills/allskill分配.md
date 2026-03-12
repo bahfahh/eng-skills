@@ -28,6 +28,7 @@
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | 全 repo 效能審計 |
 | 深度審計 | `review-gate-module-structure-optimizer` (你的) ⭐ 共用 | 封裝候選、N+1、循序 await |
 | 深度審計 | `review-gate-deep-module-refactor-advisor` (你的) ⭐ 共用 | 淺層模組、高耦合分析 |
+| Bug 修復 | `bugfix-systematic` (你的) ⭐ 共用 | 複雜 bug 系統化調查（開 ticket / 跨服務 / 難重現） |
 | Deploy | `vercel-official-deploy` (官方) | Vercel 部署腳本 |
 | 版本升級 | `next-official-upgrade` (官方) | 動態抓最新 migration guide + 跑 codemod |
 
@@ -49,6 +50,7 @@
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-module-structure-optimizer` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-deep-module-refactor-advisor` (你的) ⭐ 共用 | |
+| Bug 修復 | `bugfix-systematic` (你的) ⭐ 共用 | 複雜 bug 系統化調查（開 ticket / 跨服務 / 難重現） |
 
 ---
 
@@ -66,6 +68,7 @@
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-module-structure-optimizer` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-deep-module-refactor-advisor` (你的) ⭐ 共用 | |
+| Bug 修復 | `bugfix-systematic` (你的) ⭐ 共用 | 複雜 bug 系統化調查（開 ticket / 跨服務 / 難重現） |
 
 ---
 
@@ -81,6 +84,7 @@
 | `review-gate-performance-audit` | Next.js / React / .NET |
 | `review-gate-module-structure-optimizer` | Next.js / React / .NET |
 | `review-gate-deep-module-refactor-advisor` | Next.js / React / .NET |
+| `bugfix-systematic` | Next.js / React / .NET |
 
 ---
 

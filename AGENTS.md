@@ -274,6 +274,11 @@ description: Analyzes module boundaries and suggests refactoring strategies. Use
 |-----------|------|
 | `backend-dotnet-checklist` | ASP.NET Core / C# 開發清單（兩種模式）：(1) coding/plan 模式—開發前補 todolist，優先檢查 8 條 Core Guardrails（DI scope、async/await、EF Core NoTracking、IOptions 等）；(2) code review 模式—依清單審查 .NET 程式碼。內建 C# 標準、EF Core patterns、並發模式三份 references，自給自足不依賴外部 skills |
 
+### `bugfix-` 類
+| Skill 名稱 | 用途 |
+|-----------|------|
+| `bugfix-systematic` | 複雜 bug 系統化調查與修復工作流：適用於已開 ticket、跨服務、難重現、或原因不明的 bug（regression、data corruption、race condition、security vuln、整合性失敗）。三階段流程（bugfix.md → design.md → tasks.md），以 C(X) 正式定義 bug 條件，搭配 property-based exploration test 驗證存在性與修復有效性 |
+
 ---
 
 ## 規劃中的 Skills
