@@ -38,6 +38,13 @@
 | 流程自動化型 | 多步驟流程、orchestrator | [category-workflow-automation.md](./references/category-workflow-automation.md) |
 | MCP 增強型 | 為既有 MCP 工具補充工作流程指導 | [category-mcp-enhancement.md](./references/category-mcp-enhancement.md) |
 
+> **建立流程自動化型
+(workflow) Skill 時，必須先閱讀：**
+> [references/skills-workflow/workflow-patterns.md](./references/skills-workflow/workflow-patterns.md)
+>
+> 該文件定義五大 Workflow Pattern（循序工作流、跨服務協調、迭代精煉、情境感知選擇、領域專業嵌入）。
+> 建立前先詢問使用者需要哪種 Pattern，或依需求自行判斷，再依對應結構設計 SKILL.md。
+
 ---
 
 ## Skill 目錄結構
