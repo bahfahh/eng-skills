@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI-Native Design"
+  short_description: "AI-native design & refactor principles"
+  default_prompt: "Use $ai-native-design to propose an AI-native refactor/design plan for a module or system."
+
+policy:
+  allow_implicit_invocation: false

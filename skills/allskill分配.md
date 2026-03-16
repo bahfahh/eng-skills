@@ -41,10 +41,12 @@
 | 規劃 | `plan-mode-pro` (你的) ⭐ 共用 | |
 | 架構設計 | `architecture-ai-native-design` (你的) ⭐ 共用 | |
 | 架構設計 | `architecture-design-patterns` (你的) ⭐ 共用 | |
-| 開發前準備 | `frontend-checklist` coding/plan mode (你的) | 補 todolist，前端通用陷阱 |
+| 開發前準備 | `frontend-vite-react-checklist` coding/plan mode (你的) | Vite+React 專屬陷阱防護（routing、TanStack Query、env var、alias） |
+| 開發前準備 | `frontend-checklist` coding/plan mode (你的) | 補 todolist，前端通用 UX 陷阱 |
 | 開發中 | `react-official-best-practices` (官方) | 57 條 React 效能規則 |
 | Code Review | `codereview-unified-pro` (你的) ⭐ 共用 | PR 全面審查 |
-| Code Review | `frontend-checklist` review mode (你的) | 前端通用專項審查 |
+| Code Review | `frontend-vite-react-checklist` review mode (你的) | Vite+React 專項審查（build、chunk、env 安全） |
+| Code Review | `frontend-checklist` review mode (你的) | 前端通用 UX 專項審查 |
 | Code Review | `web-official-design-guidelines` (官方) | UI/UX 設計規範 |
 | 深度審計 | `review-gate-security-audit` (你的) ⭐ 共用 | |
 | 深度審計 | `review-gate-performance-audit` (你的) ⭐ 共用 | |
